@@ -1,0 +1,46 @@
+* {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+html {
+  font-size: 0.93em !important;
+}
+
+.form-check-input:focus  {
+  border-color: #198754 !important;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
+}
+
+.form-check-input:checked {
+  border-color: #198754 !important;
+  background-color: #198754 !important;
+}
+
+.form-check-input:focus:not(:checked) {
+  border-color: #5bd778 !important;
+}
+
+.form-check-input:not(:disabled):active {
+  background-color: #5bd778 !important;
+  border-color: #5bd778 !important;
+}
+
+.btn.btn-success.rounded-5.px-3.my-0 {
+  min-width: 40.52px;
+}
+
+@media (max-width: 991px) {
+  .btn-navbar {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .w-lg-100 {
+    width: 100%;
+  }
+
+  .md-mt-2 {
+    margin-top: 1rem;
+  }
+}
