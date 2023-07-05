@@ -548,12 +548,12 @@ function isAdmin()
 
         if ($userRole !== 'admin') {
             // Redirect atau melakukan tindakan lain sesuai kebijakan aplikasi
-            header('Location: '.BASE_URL.'unauthorized');
+            header('Location: '.BASE_URL);
             exit;
         }
     } else {
         // Redirect atau melakukan tindakan lain sesuai kebijakan aplikasi
-        header('Location: '.BASE_URL.'unauthorized');
+        header('Location: '.BASE_URL);
         exit;
     }
 }
@@ -578,12 +578,12 @@ function isUser()
 
         if ($userRole !== 'user') {
             // Redirect atau melakukan tindakan lain sesuai kebijakan aplikasi
-            header('Location: '.BASE_URL.'unauthorized');
+            header('Location: '.BASE_URL);
             exit;
         }
     } else {
         // Redirect atau melakukan tindakan lain sesuai kebijakan aplikasi
-        header('Location: '.BASE_URL.'unauthorized');
+        header('Location: '.BASE_URL);
         exit;
     }
 }
