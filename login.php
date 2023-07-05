@@ -1,19 +1,38 @@
 <?php
 
-include "./_includes/config.php";
-if ($is_login) return header("Location: " . BASE_URL);
-
-$login = "";
-
-if ($_POST) {
-  $email = isset($_POST['email']) ? $_POST['email'] : "";
-  $password = isset($_POST['password']) ? $_POST['password'] : "";
-
-  if ($email && $password) $login = login(['email' => $email, 'password' => $password]);
-  else $login = "LOGIN_FAILED_FIELD";
-  if ($login === "LOGIN_SUCCESS") header("Location: " . BASE_URL);
+include './_includes/config.php';
+if ($is_login) {
+    return header('Location: '.BASE_URL);
 }
 
+$login = '';
+
+if ($_POST) {
+    $email = isset($_POST['email']) ? $_POST['email'] : '';
+    $password = isset($_POST['password']) ? $_POST['password'] : '';
+
+    if ($email && $password) {
+        $login = login(['email' => $email, 'password' => $password]);
+    } else {
+        $login = 'LOGIN_FAILED_FIELD';
+    }
+    if ($login === 'LOGIN_SUCCESS') {
+        // Ambil user_id dari pengguna yang terautentikasi
+        $email = $_POST['email'];
+        $query = "SELECT id FROM akun WHERE email = '$email'";
+        $result = mysqli_query($connection, $query);
+
+        if ($result && mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $user_id = $row['id'];
+
+            // Redirect ke halaman untuk membuat data pendaftar dengan user_id
+            header('Location: '.BASE_URL.'pendaftar.php?user_id='.$user_id);
+        }
+    }
+}
+header('Location: pendaftarans.php');
+exit;
 ?>
 <!doctype html>
 <html lang="en">
@@ -39,21 +58,21 @@ if ($_POST) {
             </a>
             <h1 class="h2 text-center mb-4 border-bottom pb-2">Login Akun Peserta PPDB</h1>
             <form action="" method="post">
-              <?php if ($login) : ?>
-                <?php if ($login === "EMAIL_ALREADY_EXISTS") : ?>
+              <?php if ($login) { ?>
+                <?php if ($login === 'EMAIL_ALREADY_EXISTS') { ?>
                   <div class="alert alert-danger">
                     Login gagal! Email telah terdaftar.
                   </div>
-                <?php elseif ($login === "LOGIN_FAILED_FIELD") : ?>
+                <?php } elseif ($login === 'LOGIN_FAILED_FIELD') { ?>
                   <div class="alert alert-danger">
                     Login gagal! Ada form yang masih kosong.
                   </div>
-                <?php elseif ($login === "LOGIN_FAILED") : ?>
+                <?php } elseif ($login === 'LOGIN_FAILED') { ?>
                   <div class="alert alert-danger">
                     Login gagal! Kombinasi email dan password tidak valid.
                   </div>
-                <?php endif; ?>
-              <?php endif; ?>
+                <?php } ?>
+              <?php } ?>
               <div class="form-group">
                 <label for="input-email" class="mb-1">Alamat Email</label>
                 <input type="email" class="form-control shadow-none" id="input-email" name="email" required>
