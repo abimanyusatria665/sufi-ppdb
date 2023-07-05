@@ -123,7 +123,7 @@ function ambil_pendaftaran()
     $akun_id = $akun_detail['id'];
     $pendaftaran = null;
 
-    $query = "SELECT * FROM pendaftaran WHERE akun_id = '$akun_id'";
+    $query = "SELECT * FROM pendaftaran WHERE user_id = '$akun_id'";
     $result = mysqli_query($connection, $query);
 
     if ($result && mysqli_num_rows($result) > 0) {
@@ -154,7 +154,7 @@ function ambil_provinsi()
 function simpan_pendaftaran_pertama($data)
 {
     global $connection, $akun_detail;
-
+    
     // Sanitize user input
     $nisn = mysqli_real_escape_string($connection, $data['nisn']);
     $nik = mysqli_real_escape_string($connection, $data['nik']);
@@ -173,18 +173,18 @@ function simpan_pendaftaran_pertama($data)
     $akun_id = $akun_detail['id'];
 
     // Retrieve user from database
-    $sql = "SELECT * FROM pendaftaran WHERE akun_id='$akun_id'";
+    $sql = "SELECT * FROM pendaftaran WHERE user_id='$akun_id'";
     $hasil = mysqli_query($connection, $sql);
 
     if (mysqli_num_rows($hasil) > 0) {
         // Prepare the update query
-        $query = "UPDATE pendaftaran SET nisn='$nisn', nik='$nik', nama='$nama', jenis_kelamin='$jenis_kelamin', tempat_lahir='$tempat_lahir', tanggal_lahir='$tanggal_lahir', alamat='$alamat', provinsi='$provinsi', kota_kabupaten='$kota_kabupaten', kecamatan='$kecamatan', kelurahan='$kelurahan', agama='$agama', nomor_telepon='$nomor_telepon', posisi='2' WHERE akun_id='$akun_id'";
+        $query = "UPDATE pendaftaran SET nisn='$nisn', nik='$nik', nama_pendaftar='$nama', jenis_kelamin='$jenis_kelamin', tempat_lahir='$tempat_lahir', tanggal_lahir='$tanggal_lahir', alamat_lengkap='$alamat', provinsi='$provinsi', kota_kabupaten='$kota_kabupaten', kecamatan='$kecamatan', kelurahan='$kelurahan', agama='$agama', nomor_telepon='$nomor_telepon', posisi='2' WHERE user_id='$akun_id'";
 
         // Execute the update query
         $result = mysqli_query($connection, $query);
     } else {
         // Prepare the insert query
-        $query = "INSERT INTO pendaftaran (akun_id, nisn, nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, alamat, provinsi, kota_kabupaten, kecamatan, kelurahan, agama, nomor_telepon, posisi) VALUES ('$akun_id', '$nisn', '$nik', '$nama', '$jenis_kelamin', '$tempat_lahir', '$tanggal_lahir', '$alamat', '$provinsi', '$kota_kabupaten', '$kecamatan', '$kelurahan', '$agama', '$nomor_telepon', '2')";
+        $query = "INSERT INTO pendaftaran (user_id, nisn, nik, nama_pendaftar, jenis_kelamin, tempat_lahir, tanggal_lahir, alamat_lengkap, provinsi, kota_kabupaten, kecamatan, kelurahan, agama, nomor_telepon, posisi) VALUES ('$akun_id', '$nisn', '$nik', '$nama', '$jenis_kelamin', '$tempat_lahir', '$tanggal_lahir', '$alamat', '$provinsi', '$kota_kabupaten', '$kecamatan', '$kelurahan', '$agama', '$nomor_telepon', '2')";
 
         // Execute the insert query
         $result = mysqli_query($connection, $query);
@@ -225,7 +225,7 @@ function simpan_pendaftaran_kedua($data)
     $akun_id = $akun_detail['id'];
 
     // Retrieve user from database
-    $sql = "SELECT * FROM pendaftaran WHERE akun_id='$akun_id'";
+    $sql = "SELECT * FROM pendaftaran WHERE user_id='$akun_id'";
     $hasil = mysqli_query($connection, $sql);
 
     if (mysqli_num_rows($hasil) > 0) {
@@ -233,7 +233,7 @@ function simpan_pendaftaran_kedua($data)
         $query = "UPDATE pendaftaran SET nik_ayah='$nik_ayah', nama_ayah='$nama_ayah', pendidikan_ayah='$pendidikan_ayah', pekerjaan_ayah='$pekerjaan_ayah', penghasilan_ayah='$penghasilan_ayah', nomor_telepon_ayah='$nomor_ayah', 
     nik_ibu='$nik_ibu', nama_ibu='$nama_ibu', pendidikan_ibu='$pendidikan_ibu', pekerjaan_ibu='$pekerjaan_ibu', penghasilan_ibu='$penghasilan_ibu', nomor_telepon_ibu='$nomor_ibu',
     nik_wali='$nik_wali', nama_wali='$nama_wali', pekerjaan_wali='$pekerjaan_wali', nomor_telepon_wali='$nomor_wali',
-    posisi='3' WHERE akun_id='$akun_id'";
+    posisi='3' WHERE user_id='$akun_id'";
 
         // Execute the update query
         $result = mysqli_query($connection, $query);
@@ -306,7 +306,7 @@ function simpan_pendaftaran_ketiga($data)
         if ($upload_foto && $upload_ijazah_depan && $upload_ijazah_belakang) {
             $query = "UPDATE pendaftaran SET npsn='$input_npsn', sekolah_asal='$input_sekolah_asal', 
       file_pas_foto='$filename_foto".'.'.$ext1."', file_ijazah_depan='$filename_ijazah_depan".'.'.$ext2."', file_ijazah_belakang='$filename_ijazah_belakang".'.'.$ext3."', 
-      posisi='4' WHERE akun_id='$akun_id'";
+      posisi='4' WHERE user_id='$akun_id'";
 
             $result = mysqli_query($connection, $query);
 

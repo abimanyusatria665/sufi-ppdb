@@ -4,13 +4,13 @@
     <div class="col-md-6">
       <div class="form-group mb-3">
         <label for="input-nisn">NISN</label>
-        <input name="nisn" type="text" class="form-control shadow-none" id="input-nisn" placeholder="140xxxx" value="<?= isset($data_pendaftaran['nisn']) ? $data_pendaftaran['nisn'] : ""; ?>" <?= $posisi_pendaftaran_sekarang > 1 ? "disabled" : "" ?>>
+        <input name="nisn" type="number" class="form-control shadow-none" id="input-nisn" placeholder="140xxxx" value="<?= isset($data_pendaftaran['nisn']) ? $data_pendaftaran['nisn'] : ""; ?>" <?= $posisi_pendaftaran_sekarang > 1 ? "disabled" : "" ?>>
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group mb-3">
         <label for="input-nik">NIK</label>
-        <input name="nik" type="text" class="form-control shadow-none" id="input-nik" placeholder="3275xxxx" value="<?= isset($data_pendaftaran['nik']) ? $data_pendaftaran['nik'] : ""; ?>" <?= $posisi_pendaftaran_sekarang > 1 ? "disabled" : "" ?>>
+        <input name="nik" type="number" class="form-control shadow-none" id="input-nik" placeholder="3275xxxx" value="<?= isset($data_pendaftaran['nik']) ? $data_pendaftaran['nik'] : ""; ?>" <?= $posisi_pendaftaran_sekarang > 1 ? "disabled" : "" ?>>
       </div>
     </div>
     <div class="col-md-6">

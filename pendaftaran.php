@@ -19,6 +19,7 @@ $posisi_pendaftaran_get = isset($_GET['posisi']) ? $_GET['posisi'] : $posisi_pen
 
 $error = [];
 
+
 if (isset($_POST['simpan_pendaftaran_pertama'])) {
   // Validate NISN
   if (empty($_POST["nisn"])) {
@@ -110,13 +111,16 @@ if (isset($_POST['simpan_pendaftaran_pertama'])) {
     $nomor_telepon = $_POST["nomor_telepon"];
   }
 
-  if (empty($_POST["persetujuan"])) {
-    $errors[] = "Persetujuan";
-  }
+  // if (empty($_POST["persetujuan"])) {
+  //   $errors[] = "Persetujuan";
+  // }
 
   if (empty($errors)) {
-    $pendaftaran_pertama = simpan_pendaftaran_pertama($_POST);
+
+    $simpan_pendaftaran = simpan_pendaftaran_pertama($_POST);
+    $pendaftaran_pertama = "SIMPAN_PENDAFTARAN_PERTAMA_BERHASIL";
     $data_pendaftaran = ambil_pendaftaran();
+
   } else {
     $pendaftaran_pertama = "SIMPAN_PENDAFTARAN_PERTAMA_KOSONG";
   }
