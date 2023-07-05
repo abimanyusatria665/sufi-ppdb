@@ -493,3 +493,97 @@ function deleteDataPembayaran($id)
         return false;
     }
 }
+
+function addScoreTest($data)
+{
+    global $connection;
+
+    $nilai = $data['nilai'];
+    $user_id = $data['user_id'];
+
+    $query = "INSERT INTO psikotest (nilai, user_id) VALUES ('$nilai', '$user_id')";
+    $result = mysqli_query($connection, $query);
+
+    if ($result) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function getAllScore()
+{
+    global $connection;
+    $query = 'SELECT psikotest.*, akun.name AS name
+              FROM psikotest
+              LEFT JOIN akun ON psikotest.user_id = akun.id';
+    $result = mysqli_query($connection, $query);
+
+    $data = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $data[] = $row;
+    }
+
+    return $data;
+}
+
+function isAdmin()
+{
+    global $connection;
+    // Cek apakah pengguna sudah login
+    if (!isset($_SESSION['user_email'])) {
+        // Redirect atau melakukan tindakan lain sesuai kebijakan aplikasi
+        header('Location: '.BASE_URL.'login');
+        exit;
+    }
+
+    // Cek apakah peran pengguna adalah 'admin'
+    $email = $_SESSION['user_email'];
+    $query = "SELECT role FROM akun WHERE email = '$email'";
+    $result = mysqli_query($connection, $query);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $userRole = $row['role'];
+
+        if ($userRole !== 'admin') {
+            // Redirect atau melakukan tindakan lain sesuai kebijakan aplikasi
+            header('Location: '.BASE_URL.'unauthorized');
+            exit;
+        }
+    } else {
+        // Redirect atau melakukan tindakan lain sesuai kebijakan aplikasi
+        header('Location: '.BASE_URL.'unauthorized');
+        exit;
+    }
+}
+
+function isUser()
+{
+    // Cek apakah pengguna sudah login
+    if (!isset($_SESSION['user_email'])) {
+        // Redirect atau melakukan tindakan lain sesuai kebijakan aplikasi
+        header('Location: '.BASE_URL.'login');
+        exit;
+    }
+
+    // Cek apakah peran pengguna adalah 'user'
+    $email = $_SESSION['user_email'];
+    $query = "SELECT role FROM akun WHERE email = '$email'";
+    $result = mysqli_query($connection, $query);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $userRole = $row['role'];
+
+        if ($userRole !== 'user') {
+            // Redirect atau melakukan tindakan lain sesuai kebijakan aplikasi
+            header('Location: '.BASE_URL.'unauthorized');
+            exit;
+        }
+    } else {
+        // Redirect atau melakukan tindakan lain sesuai kebijakan aplikasi
+        header('Location: '.BASE_URL.'unauthorized');
+        exit;
+    }
+}
