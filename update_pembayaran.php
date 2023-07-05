@@ -1,24 +1,37 @@
 <?php
-
 include './_includes/config.php';
-if (!$_SESSION['user_email']) {
+if (!isset($_SESSION['user_email'])) {
     header('Location: login');
+    exit;
 }
 
 $config = [
-  'page' => 'Pembayaran',
+    'page' => 'Update Pembayaran',
 ];
 
 $success_message = '';
 $error_message = '';
 
-// Tambah Data Pembayaran
-if (isset($_POST['tambah'])) {
+if (isset($_POST['update'])) {
     $status = $_POST['status'];
     $nominal = $_POST['nominal'];
     $bukti_pembayaran = $_FILES['bukti_pembayaran']['name'];
 
     // Validasi form
+
+    $error_messages = [];
+
+    if (empty($status)) {
+        $error_messages[] = 'Status pembayaran harus diisi.';
+    }
+
+    if (empty($nominal)) {
+        $error_messages[] = 'Nominal pembayaran harus diisi.';
+    }
+
+    if (empty($bukti_pembayaran)) {
+        $error_messages[] = 'File bukti pembayaran harus diupload.';
+    }
     if (empty($status) || empty($nominal) || empty($bukti_pembayaran)) {
         $error_message = 'Semua field harus diisi.';
     } else {
@@ -39,18 +52,16 @@ if (isset($_POST['tambah'])) {
                 'bukti_pembayaran' => $bukti_pembayaran_target_file,
             ];
 
-            if (tambahPembayaran($data_pembayaran)) {
-                $success_message = 'Data pembayaran berhasil ditambahkan.';
+            if (updateDataPembayaran($_GET['id'], $data_pembayaran)) {
+                $success_message = 'Data pembayaran berhasil diperbarui.';
             } else {
-                $error_message = 'Gagal menambahkan data pembayaran.';
+                $error_message = 'Gagal memperbarui data pembayaran.';
             }
         } else {
             $error_message = 'Terjadi kesalahan saat mengupload file bukti pembayaran.';
         }
     }
 }
-
-$data_pembayaran = getAllDataPembayaran();
 ?>
 
 <!doctype html>
@@ -85,38 +96,16 @@ $data_pembayaran = getAllDataPembayaran();
             <input type="file" name="bukti_pembayaran" id="bukti_pembayaran">
         </div>
         <div>
-            <input type="submit" name="tambah" value="Tambah Pembayaran">
+            <input type="submit" name="update" value="Perbarui Pembayaran">
         </div>
-
-        
     </form>
-
-    <table>
-  <tr>
-    <th>Bukti Pembayaran</th>
-    <th>Status</th>
-    <th>Nominal</th>
-    <th>Action</th>
-  </tr>
-
-  <?php foreach ($data_pembayaran as $data) { ?>
-    <tr>
-      <td><img src="<?php echo $data['bukti_pembayaran']; ?>" alt="Foto" width="100"></td>
-      <td><?php echo $data['status']; ?></td>
-      <td><?php echo $data['nominal']; ?></td>
-      <td><a href="update_pembayaran.php?id<?php echo $data['id']; ?>">edit</a>
-      <a href="delete_pembayaran.php?id=<?php echo $data['id']; ?>">delete</a>
-</td>
-
-    </tr>
-    <?php } ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-            window.setTimeout(function () {
-                $(".alert").fadeTo(1000, 0).slideUp(1000, function () {
+        $(document).ready(function() {
+            window.setTimeout(function() {
+                $(".alert").fadeTo(1000, 0).slideUp(1000, function() {
                     $(this).remove();
                 });
             }, 3000);

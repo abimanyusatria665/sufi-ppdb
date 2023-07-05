@@ -406,22 +406,41 @@ function deleteDataPendaftar($id)
     return mysqli_query($connection, $query);
 }
 
-function tambahPembayaran($status, $nominal)
+function tambahPembayaran($data)
 {
-    global $conn;
+    global $connection;
 
-    $ext = ['pdf', 'jpg', 'jpeg']; // Ekstensi file yang diizinkan
-    $randomNumber = mt_rand(100000, 999999); // Menghasilkan angka acak antara 100000 dan 999999
-    $bukti_pembayaran = $randomNumber.'.'.$ext[array_rand($ext)]; // Menggabungkan angka acak dengan ekstensi file
+    $status = $data['status'];
+    $nominal = $data['nominal'];
+    $bukti_pembayaran = $data['bukti_pembayaran'];
+
+    // $ext = ['pdf', 'jpg', 'jpeg']; // Ekstensi file yang diizinkan
+    // $randomNumber = mt_rand(100000, 999999); // Menghasilkan angka acak antara 100000 dan 999999
+    // $bukti_pembayaran = $randomNumber.'.'.$ext[array_rand($ext)]; // Menggabungkan angka acak dengan ekstensi file
 
     $query = "INSERT INTO pembayaran (status, nominal, bukti_pembayaran) VALUES ('$status', '$nominal', '$bukti_pembayaran')";
-    $result = mysqli_query($conn, $query);
+    $result = mysqli_query($connection, $query);
 
     if ($result) {
         return true;
     } else {
         return false;
     }
+}
+
+// Fungsi untuk mengambil semua data Pembayaran
+function getAllDataPembayaran()
+{
+    global $connection;
+    $query = 'SELECT * FROM pembayaran';
+    $result = mysqli_query($connection, $query);
+
+    $data_pendaftar = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $data_pendaftar[] = $row;
+    }
+
+    return $data_pendaftar;
 }
 
 // Fungsi untuk mengambil data pembayaran berdasarkan ID
@@ -442,17 +461,16 @@ function getDataPembayaranById($id)
 }
 
 // Fungsi untuk mengupdate data pembayaran
-function updateDataPembayaran($data_pembayaran)
+function updateDataPembayaran($id, $data_pembayaran)
 {
-    global $conn;
+    global $connection;
 
-    $id = $data_pembayaran['id'];
     $status = $data_pembayaran['status'];
     $nominal = $data_pembayaran['nominal'];
     $bukti_pembayaran = $data_pembayaran['bukti_pembayaran'];
 
     $query = "UPDATE pembayaran SET status = '$status', nominal = '$nominal', bukti_pembayaran = '$bukti_pembayaran' WHERE id = '$id'";
-    $result = mysqli_query($conn, $query);
+    $result = mysqli_query($connection, $query);
 
     if ($result) {
         return true;
@@ -464,10 +482,10 @@ function updateDataPembayaran($data_pembayaran)
 // Fungsi untuk menghapus data pembayaran berdasarkan ID
 function deleteDataPembayaran($id)
 {
-    global $conn;
+    global $connection;
 
     $query = "DELETE FROM pembayaran WHERE id = '$id'";
-    $result = mysqli_query($conn, $query);
+    $result = mysqli_query($connection, $query);
 
     if ($result) {
         return true;

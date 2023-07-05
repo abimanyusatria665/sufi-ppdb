@@ -31,8 +31,7 @@ if ($_POST) {
         }
     }
 }
-header('Location: pendaftarans.php');
-exit;
+
 ?>
 <!doctype html>
 <html lang="en">
