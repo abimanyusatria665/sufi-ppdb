@@ -1,13 +1,29 @@
 <?php
 
 include "./_includes/config.php";
+
+// Menghilangkan tampilan pesan error di halaman web
+ini_set('display_errors', 0);
+// Mengabaikan laporan error pada level tertentu
+error_reporting(E_ALL & ~E_NOTICE);
+
 if(isset($_SESSION['user_email'])){
   $role = $_SESSION['role'];
 }
 $config = [
   'page' => 'Dasbor'
 ];
-$data_pembayaran = getAllDataPembayaran();
+
+  if (isset($_POST['verifikasi'])) {
+      $id_pembayaran = $_POST['verifikasi'];
+
+      // Lanjutkan dengan logika pembaruan (update) data
+      $query = "UPDATE pembayaran SET status = true WHERE id = $id_pembayaran";
+
+  }
+  $data_santri = getDataSantri();
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -18,10 +34,11 @@ $data_pembayaran = getAllDataPembayaran();
   <title>PPDB Santri</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">    
-    <link href="./assets/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">    
+  <link href="./assets/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -51,8 +68,25 @@ $data_pembayaran = getAllDataPembayaran();
               <h1 class="text-center title">Admin Dashboard</h1>
               <a href="data-pembayaran.php" class="btn btn-success">Data Pembayaran</a>
               <a href="data-santri.php" class="btn btn-success">Data Santri</a>
-            </div>
-            
+            <table class="table table-striped  mt-3 ">
+            <tr>
+                <th>Nama</th>
+                <th>Tahun ajaran</th>
+                <th>Kelas</th>
+                <th>Nilai</th>
+            </tr>
+                <?php foreach ($data_santri as $data) { ?>
+                    <tr>
+                        <td><?= $data['name'] ?></td>
+                        <td><?= $data['tahun_ajaran'] ?></td>
+                        <td>
+                          <?php echo $data['kelas'] ?>
+                        </td>
+                        <td><?php echo $data['nilai']; ?></td>
+                    </tr>
+                <?php } ?>
+            </table>
+          </div>  
         <?php } ?>  
       </div>
     </div>

@@ -26,6 +26,10 @@
               </label> -->
             </div>
           </a>
+          <a href="pembayaran" class="btn <?= $config['page'] === 'Pembayaran' ? "btn-success active" : "btn-light" ?> text-start w-100 rounded-2" style="line-height: initial;">
+            <i class="bi <?= $config['page'] === 'Pengaturan' ? "bi-gear-fill" : "bi-gear" ?> me-2"></i>
+            Pembayaran
+          </a>
           <a href="pengaturan" class="btn <?= $config['page'] === 'Pengaturan' ? "btn-success active" : "btn-light" ?> text-start w-100 rounded-2" style="line-height: initial;">
             <i class="bi <?= $config['page'] === 'Pengaturan' ? "bi-gear-fill" : "bi-gear" ?> me-2"></i>
             Pengaturan
