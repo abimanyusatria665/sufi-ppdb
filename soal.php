@@ -1,3 +1,96 @@
+<?php
+
+include './_includes/config.php';
+
+if (!$_SESSION['user_email']) {
+    header('Location: login');
+}
+
+$config = [
+  'page' => 'Psikotest',
+];
+
+$success_message = '';
+$error_message = '';
+if (isset($_REQUEST['submit'])) {
+    $no_1 = $_REQUEST['no1'];
+    $no_2 = $_REQUEST['no2'];
+    $no_3 = $_REQUEST['no3'];
+    $no_4 = $_REQUEST['no4'];
+    $no_5 = $_REQUEST['no5'];
+    $no_6 = $_REQUEST['no6'];
+    $no_7 = $_REQUEST['no7'];
+    $no_8 = $_REQUEST['no8'];
+    $no_9 = $_REQUEST['no9'];
+    $no_10 = $_REQUEST['no10'];
+
+    $nilai_akhir = 0;
+    $nilai_per_soal = 10;
+
+    // Cek jawaban masing-masing soal dan tambahkan nilai jika jawaban benar
+    if ($no_1 == 'a') {
+        $nilai_akhir += $nilai_per_soal;
+    }
+
+    if ($no_2 == 'a') {
+        $nilai_akhir += $nilai_per_soal;
+    }
+
+    if ($no_3 == 'a') {
+        $nilai_akhir += $nilai_per_soal;
+    }
+
+    if ($no_4 == 'a') {
+        $nilai_akhir += $nilai_per_soal;
+    }
+
+    if ($no_5 == 'a') {
+        $nilai_akhir += $nilai_per_soal;
+    }
+
+    if ($no_6 == 'a') {
+        $nilai_akhir += $nilai_per_soal;
+    }
+
+    if ($no_7 == 'a') {
+        $nilai_akhir += $nilai_per_soal;
+    }
+
+    if ($no_8 == 'a') {
+        $nilai_akhir += $nilai_per_soal;
+    }
+
+    if ($no_9 == 'a') {
+        $nilai_akhir += $nilai_per_soal;
+    }
+
+    if ($no_10 == 'a') {
+        $nilai_akhir += $nilai_per_soal;
+    }
+    // Cek apakah ada jawaban yang salah
+    if ($no_1 != 'a' || $no_2 != 'a' || $no_3 != 'a' || $no_4 != 'a' || $no_5 != 'a' ||
+        $no_6 != 'a' || $no_7 != 'a' || $no_8 != 'a' || $no_9 != 'a' || $no_10 != 'a') {
+        $result = ($nilai_akhir / 10) * 10;
+    }
+
+    $nilai = $nilai_akhir;
+    $user_id = 1;
+
+    $data = [
+      'nilai' => $nilai,
+      'user_id' => $user_id,
+    ];
+
+    if (addScoreTest($data)) {
+        $success_message = 'Data pendaftar berhasil ditambahkan.';
+    } else {
+        $error_message = 'Gagal menambahkan data pendaftar.';
+    }
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -276,67 +369,3 @@
   </body>
 </html>
 
-<?php
-if (isset($_REQUEST['submit'])) {
-    $no_1 = $_REQUEST['no1'];
-    $no_2 = $_REQUEST['no2'];
-    $no_3 = $_REQUEST['no3'];
-    $no_4 = $_REQUEST['no4'];
-    $no_5 = $_REQUEST['no5'];
-    $no_6 = $_REQUEST['no6'];
-    $no_7 = $_REQUEST['no7'];
-    $no_8 = $_REQUEST['no8'];
-    $no_9 = $_REQUEST['no9'];
-    $no_10 = $_REQUEST['no10'];
-
-    $nilai_akhir = 0;
-    $nilai_per_soal = 10;
-
-    // Cek jawaban masing-masing soal dan tambahkan nilai jika jawaban benar
-    if ($no_1 == 'a') {
-        $nilai_akhir += $nilai_per_soal;
-    }
-
-    if ($no_2 == 'a') {
-        $nilai_akhir += $nilai_per_soal;
-    }
-
-    if ($no_3 == 'a') {
-        $nilai_akhir += $nilai_per_soal;
-    }
-
-    if ($no_4 == 'a') {
-        $nilai_akhir += $nilai_per_soal;
-    }
-
-    if ($no_5 == 'a') {
-        $nilai_akhir += $nilai_per_soal;
-    }
-
-    if ($no_6 == 'a') {
-        $nilai_akhir += $nilai_per_soal;
-    }
-
-    if ($no_7 == 'a') {
-        $nilai_akhir += $nilai_per_soal;
-    }
-
-    if ($no_8 == 'a') {
-        $nilai_akhir += $nilai_per_soal;
-    }
-
-    if ($no_9 == 'a') {
-        $nilai_akhir += $nilai_per_soal;
-    }
-
-    if ($no_10 == 'a') {
-        $nilai_akhir += $nilai_per_soal;
-    }
-    // Cek apakah ada jawaban yang salah
-    if ($no_1 != 'a' || $no_2 != 'a' || $no_3 != 'a' || $no_4 != 'a' || $no_5 != 'a' ||
-        $no_6 != 'a' || $no_7 != 'a' || $no_8 != 'a' || $no_9 != 'a' || $no_10 != 'a') {
-        $nilai_akhir = ($nilai_akhir / 10) * 10;
-    }
-    
-}
-?>
