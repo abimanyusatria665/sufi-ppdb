@@ -82,6 +82,28 @@ if (isset($_REQUEST['submit'])) {
     ];
 
     if (addScoreTest($data)) {
+        $current_year = date('Y');
+
+        // Mendapatkan tahun 3 tahun ke depan
+        $future_year = $current_year + 3;
+        $digit2 = rand(7, 9);
+
+        // Format rentang tahun
+        $year_range = $current_year.' - '.$future_year;
+
+        $tahun_ajaran = $year_range;
+        $tanggal_masuk = '2023 - 07 - 05';
+        $kelas = '7'.$digit2;
+
+        $data = [
+          'tahun_ajaran' => $tahun_ajaran,
+          'tanggal_masuk' => $tanggal_masuk,
+          'kelas' => $kelas,
+        ];
+
+        if (createNewSantri($data)) {
+            $success_message = 'Data Santri berhasil ditambahkan.';
+        }
         $success_message = 'Data pendaftar berhasil ditambahkan.';
     } else {
         $error_message = 'Gagal menambahkan data pendaftar.';

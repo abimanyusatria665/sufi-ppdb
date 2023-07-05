@@ -50,6 +50,7 @@ $data_pembayaran = getAllDataPembayaran();
             <div class="col-lg-9 col-sm-12 col-md-8">
               <h1 class="text-center title">Admin Dashboard</h1>
               <a href="data-pembayaran.php" class="btn btn-success">Data Pembayaran</a>
+              <a href="data-santri.php" class="btn btn-success">Data Santri</a>
             </div>
             
         <?php } ?>  
