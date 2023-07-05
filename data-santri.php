@@ -2,6 +2,11 @@
 
 include "./_includes/config.php";
 
+// Menghilangkan tampilan pesan error di halaman web
+ini_set('display_errors', 0);
+// Mengabaikan laporan error pada level tertentu
+error_reporting(E_ALL & ~E_NOTICE);
+
 if(isset($_SESSION['user_email'])){
   $role = $_SESSION['role'];
 }
@@ -16,7 +21,8 @@ $config = [
       $query = "UPDATE pembayaran SET status = true WHERE id = $id_pembayaran";
 
   }
-$data_pembayaran = getAllDataPembayaran();
+  $data_santri = getDataSantri();
+
 
 ?>
 <!doctype html>
@@ -64,23 +70,19 @@ $data_pembayaran = getAllDataPembayaran();
               <a href="data-santri.php" class="btn btn-success">Data Santri</a>
             <table class="table table-striped  mt-3 ">
             <tr>
-                <th>Bukti Pembayaran</th>
-                <th>Status</th>
-                <th>Nominal</th>
-                <th>Action</th>
+                <th>Nama</th>
+                <th>Tahun ajaran</th>
+                <th>Kelas</th>
+                <th>Nilai</th>
             </tr>
-                <?php foreach ($data_pembayaran as $data) { ?>
+                <?php foreach ($data_santri as $data) { ?>
                     <tr>
-                        <td><img src="<?php echo $data['bukti_pembayaran']; ?>" alt="Foto" width="100"></td>
+                        <td><?= $data['name'] ?></td>
+                        <td><?= $data['tahun_ajaran'] ?></td>
                         <td>
-                          <?php if($data['status'] == true){ echo "sudah di bayar";}?>
+                          <?php echo $data['kelas'] ?>
                         </td>
-                        <td><?php echo $data['nominal']; ?></td>
-                        <td>
-                          <form action="" method="post">
-                            <button class="btn btn-success" name="verifikasi" value="<?php echo $data['id']; ?>">Verifikasi</button>
-                          </form>
-                        </td>
+                        <td><?php echo $data['nilai']; ?></td>
                     </tr>
                 <?php } ?>
             </table>

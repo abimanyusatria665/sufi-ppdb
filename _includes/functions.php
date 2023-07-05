@@ -440,7 +440,24 @@ function getAllDataPembayaran()
 
     return $data_pendaftar;
 }
+function getDataSantri()
+{
+    global $connection;
 
+    $query = "SELECT santri.tahun_ajaran, akun.name, santri.kelas, psikotest.nilai
+              FROM santri
+              INNER JOIN psikotest ON santri.id = psikotest.user_id
+              INNER JOIN akun ON psikotest.user_id = akun.id";
+
+    $result = mysqli_query($connection, $query);
+
+    $merged_data = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $merged_data[] = $row;
+    }
+
+    return $merged_data;
+}
 // Fungsi untuk mengambil data pembayaran berdasarkan ID
 function getDataPembayaranById($id)
 {
