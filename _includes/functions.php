@@ -52,6 +52,7 @@ function login($data)
         if (password_verify($password, $hashed_password)) {
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['user_email'] = $row['email'];
+            $_SESSION['role'] = $row['role'];
 
             return 'LOGIN_SUCCESS';
         } else {
@@ -410,7 +411,6 @@ function tambahPembayaran($data)
 {
     global $connection;
 
-    $status = $data['status'];
     $nominal = $data['nominal'];
     $bukti_pembayaran = $data['bukti_pembayaran'];
 
@@ -418,7 +418,7 @@ function tambahPembayaran($data)
     // $randomNumber = mt_rand(100000, 999999); // Menghasilkan angka acak antara 100000 dan 999999
     // $bukti_pembayaran = $randomNumber.'.'.$ext[array_rand($ext)]; // Menggabungkan angka acak dengan ekstensi file
 
-    $query = "INSERT INTO pembayaran (status, nominal, bukti_pembayaran) VALUES ('$status', '$nominal', '$bukti_pembayaran')";
+    $query = "INSERT INTO pembayaran (status, nominal, bukti_pembayaran) VALUES (false, '$nominal', '$bukti_pembayaran')";
     $result = mysqli_query($connection, $query);
 
     if ($result) {

@@ -1,12 +1,12 @@
 * {
-  font-family: 'Poppins', sans-serif !important;
+  font-family: "Poppins", sans-serif !important;
 }
 
 html {
   font-size: 0.93em !important;
 }
 
-.form-check-input:focus  {
+.form-check-input:focus {
   border-color: #198754 !important;
   box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
 }
@@ -29,6 +29,15 @@ html {
   min-width: 40.52px;
 }
 
+.input > label {
+  font-family: "Poppins";
+  font-size: 15px;
+  font-weight: 700;
+}
+.title {
+  font-family: "Poppins";
+  font-weight: 700;
+}
 @media (max-width: 991px) {
   .btn-navbar {
     width: 100%;
