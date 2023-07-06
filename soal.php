@@ -80,8 +80,8 @@ if (isset($_REQUEST['submit'])) {
       'nilai' => $nilai,
       'user_id' => $user_id,
     ];
-
-    if (addScoreTest($data)) {
+    if( $nilai > 70){
+if (addScoreTest($data)) {
         $current_year = date('Y');
 
         // Mendapatkan tahun 3 tahun ke depan
@@ -102,12 +102,21 @@ if (isset($_REQUEST['submit'])) {
         ];
 
         if (createNewSantri($data)) {
-            $success_message = 'Data Santri berhasil ditambahkan.';
-        }
+            header("Location: pemberitahuan-lulus.php");
+            exit; // Pastikan untuk menggunakan exit setelah header        }
         $success_message = 'Data pendaftar berhasil ditambahkan.';
     } else {
         $error_message = 'Gagal menambahkan data pendaftar.';
     }
+    }else {
+        // Pemrosesan data Anda
+
+        // Mengarahkan pengguna ke halaman tertentu
+        header("Location: pemberitahuan-tidak-lulus.php");
+        exit; // Pastikan untuk menggunakan exit setelah header
+    }
+    
+}
 }
 ?>
 
