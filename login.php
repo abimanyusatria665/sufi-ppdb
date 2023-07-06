@@ -27,7 +27,7 @@ if ($_POST) {
             $user_id = $row['id'];
 
             // Redirect ke halaman untuk membuat data pendaftar dengan user_id
-            header('Location: '.BASE_URL.'pendaftarans.php?user_id='.$user_id);
+            header('Location: '.BASE_URL);
         }
     }
 }

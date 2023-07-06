@@ -120,6 +120,7 @@ if (isset($_POST['simpan_pendaftaran_pertama'])) {
         $simpan_pendaftaran = simpan_pendaftaran_pertama($_POST);
         $pendaftaran_pertama = 'SIMPAN_PENDAFTARAN_PERTAMA_BERHASIL';
         $data_pendaftaran = ambil_pendaftaran();
+        header('Location: '.BASE_URL.'pendaftaran?posisi=2');
     } else {
         $pendaftaran_pertama = 'SIMPAN_PENDAFTARAN_PERTAMA_KOSONG';
     }
@@ -230,6 +231,7 @@ if (isset($_POST['simpan_pendaftaran_kedua'])) {
         $simpan_pendaftaran = simpan_pendaftaran_kedua($_POST);
         $pendaftaran_kedua = 'SIMPAN_PENDAFTARAN_KEDUA_BERHASIL';
         $data_pendaftaran = ambil_pendaftaran();
+        header('Location: '.BASE_URL.'pendaftaran?posisi=3');
     } else {
         $pendaftaran_kedua = 'SIMPAN_PENDAFTARAN_KEDUA_KOSONG';
     }
