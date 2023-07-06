@@ -11,12 +11,9 @@ $config = [
 
     if (isset($_POST['verifikasi'])) {
         $id_pembayaran = $_POST['verifikasi'];
-
         // Lanjutkan dengan logika pembaruan (update) data
         $query = "UPDATE pembayaran SET status = true WHERE id = $id_pembayaran";
         mysqli_query($connection, $query);
-
-
     }
 $data_pembayaran = getAllDataPembayaran();
 
