@@ -21,7 +21,7 @@ $database = [
   'host' => 'localhost',
   'username' => 'root',
   'password' => '',
-  'database' => 'sufi_ppdb',
+  'database' => 'db-apps-sufi',
 ];
 
 $connection = mysqli_connect($database['host'], $database['username'], $database['password'], $database['database']);

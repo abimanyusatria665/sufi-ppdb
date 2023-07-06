@@ -32,7 +32,7 @@ $config = [
               <div class="card-title h3 pb-2 mb-3 border-bottom"><strong>Psikotes</strong></div>
               <p class="mb-0">Kamu dapat memulai psikotes dengan menekan tombol 'Mulai Psikotes' di bawah.</p>
               <p>Terdapat 10 pertanyaan pilihan ganda. Waktu pengerjaan 10 menit.</p>
-              <button type="submit" class="btn btn-success px-3" disabled>Mulai Psikotes</button>
+              <a class="btn btn-success" href="soal.php">Mulai Psikotes</a>
             </div>
           </div>
         </div>

@@ -9,13 +9,15 @@ $config = [
   'page' => 'Dasbor'
 ];
 
-  if (isset($_POST['verifikasi'])) {
-      $id_pembayaran = $_POST['verifikasi'];
+    if (isset($_POST['verifikasi'])) {
+        $id_pembayaran = $_POST['verifikasi'];
 
-      // Lanjutkan dengan logika pembaruan (update) data
-      $query = "UPDATE pembayaran SET status = true WHERE id = $id_pembayaran";
+        // Lanjutkan dengan logika pembaruan (update) data
+        $query = "UPDATE pembayaran SET status = true WHERE id = $id_pembayaran";
+        mysqli_query($connection, $query);
 
-  }
+
+    }
 $data_pembayaran = getAllDataPembayaran();
 
 ?>
@@ -73,12 +75,12 @@ $data_pembayaran = getAllDataPembayaran();
                     <tr>
                         <td><img src="<?php echo $data['bukti_pembayaran']; ?>" alt="Foto" width="100"></td>
                         <td>
-                          <?php if($data['status'] == true){ echo "sudah di bayar";}?>
+                          <?php if($data['status'] == true){ echo "sudah di bayar";}else{ echo "belum di bayar"; }?>
                         </td>
                         <td><?php echo $data['nominal']; ?></td>
                         <td>
                           <form action="" method="post">
-                            <button class="btn btn-success" name="verifikasi" value="<?php echo $data['id']; ?>">Verifikasi</button>
+                             <button class="btn btn-success" name="verifikasi" value="<?php echo $data['id']; ?>">Verifikasi</button>
                           </form>
                         </td>
                     </tr>
